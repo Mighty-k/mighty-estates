@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop offset="0%" stop-color="#e6eefc" />
+      <stop offset="100%" stop-color="#dbeafe" />
+    </linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#g)" />
+  <g transform="translate(120 160) scale(0.6)">
+    <rect x="0" y="200" width="800" height="400" rx="24" fill="#ffffff" stroke="#cbd5e1" />
+    <rect x="32" y="240" width="240" height="160" rx="8" fill="#f8fafc" />
+    <rect x="320" y="240" width="420" height="160" rx="8" fill="#f1f5f9" />
+    <rect x="32" y="420" width="708" height="140" rx="8" fill="#eef2ff" />
+    <text x="80" y="140" font-size="42" font-family="Georgia, serif" fill="#0b4dd6">Example House</text>
+  </g>
+</svg>
