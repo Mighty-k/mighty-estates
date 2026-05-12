@@ -17,10 +17,10 @@ export default function App({ Component, pageProps }: AppProps) {
           crossOrigin="anonymous"
         />
         <link rel="icon" type="image/png" sizes="32x32" href="/M.png" />
-        <link
+        {/* <link
           href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap"
           rel="stylesheet"
-        />
+        /> */}
         <meta
           property="og:title"
           content="Mighty Estates - Find Your Dream Property"
