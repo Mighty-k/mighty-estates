@@ -18,15 +18,15 @@ export default function AgentsPage() {
 
       <Header />
 
-      <main className="max-w-6xl mx-auto p-6">
-        <section className="rounded-2xl border border-slate-200 bg-white p-8 mb-8 shadow-sm">
-          <p className="text-xs uppercase tracking-[0.35em] font-semibold text-brand-700">
+      <main className="max-w-6xl mx-auto px-6 py-10">
+        <section className="rounded-structural border border-line bg-white p-8 mb-8 shadow-soft">
+          <p className="text-xs uppercase tracking-[0.25em] font-semibold text-ledger">
             Agents
           </p>
-          <h1 className="text-4xl font-display leading-tight mt-3">
+          <h1 className="font-display text-3xl md:text-4xl font-bold text-ink leading-tight mt-3">
             Meet the team guiding every search.
           </h1>
-          <p className="text-slate-600 mt-3 max-w-2xl">
+          <p className="text-slate mt-3 max-w-2xl text-base leading-relaxed">
             Our agents pair market knowledge with a calm, high-touch approach so
             buyers, renters, and owners can move with confidence.
           </p>

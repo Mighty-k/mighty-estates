@@ -3,17 +3,43 @@
 @tailwind utilities;
 
 :root {
-  --bg: #ffffff;
-  --bg-alt: #f8fafc;
-  --charcoal: #0f172a;
-  --charcoal-light: #1e293b;
-  --muted: #94a3b8;
-  --accent: #f97316;
-  --accent-glow: rgba(249, 115, 22, 0.12);
+  --ink: #14161B;
+  --paper: #F6F7F5;
+  --paper-2: #EFF0EC;
+  --slate: #5B6472;
+  --slate-2: #8A93A0;
+  --line: #DADDE0;
+  --ledger: #1E4A3D;
+  --ledger-dim: #143329;
+  --ledger-tint: #E2EEE8;
+  --gold: #B8842A;
+  --gold-tint: #F6EEDD;
+  --success: #2E8B63;
+  --error: #B84B3E;
+
+  --r-structural: 16px;
+  --r-control: 12px;
+  --r-pill: 9999px;
+
+  --shadow-soft: 0 1px 2px rgba(20,22,27,0.04), 0 8px 20px -12px rgba(20,22,27,0.10);
+  --shadow-float: 0 8px 24px -6px rgba(20,22,27,0.16);
+
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 64px;
+  --s-9: 96px;
+  --s-10: 128px;
 }
 
 html {
   scroll-behavior: smooth;
+  background-color: var(--paper);
+  color: var(--ink);
 }
 
 * {
@@ -21,15 +47,32 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Accessibility Focus Ring: 2px ledger green outline with 3px offset & softened corners */
+*:focus-visible {
+  outline: 2px solid var(--ledger) !important;
+  outline-offset: 3px !important;
+  border-radius: 8px;
+}
+
 body {
-  @apply bg-white text-charcoal-900;
-  font-family: "DM Sans", system-ui, sans-serif;
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
   line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  letter-spacing: -0.015em;
+}
+
+h1 {
+  letter-spacing: -0.02em;
 }
 
 .arch-hero {
   position: relative;
-  background: linear-gradient(135deg, var(--charcoal) 0%, var(--charcoal-light) 100%);
+  background: linear-gradient(135deg, var(--ink) 0%, #1a2220 100%);
   overflow: hidden;
 }
 
@@ -38,7 +81,8 @@ body {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(135deg, transparent 0%, rgba(249, 115, 22, 0.03) 50%, transparent 100%),
+    radial-gradient(circle at 70% 30%, rgba(30, 74, 61, 0.25) 0%, transparent 60%),
+    radial-gradient(circle at 30% 70%, rgba(184, 132, 42, 0.15) 0%, transparent 60%),
     repeating-linear-gradient(
       90deg,
       transparent 0px,
@@ -57,40 +101,47 @@ body {
   height: 140%;
   background: linear-gradient(
     135deg,
-    rgba(249, 115, 22, 0.08) 0%,
-    transparent 60%
+    rgba(30, 74, 61, 0.15) 0%,
+    rgba(184, 132, 42, 0.08) 50%,
+    transparent 100%
   );
   transform: skewX(-12deg);
   pointer-events: none;
 }
 
+/* Card - Soft depth, 16px structural radius */
 .card-arch {
-  @apply bg-white border border-charcoal-100 rounded-lg overflow-hidden;
-  @apply shadow-arch-soft;
-  @apply transition-all duration-300 ease-out;
+  background-color: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: var(--r-structural);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  transition: transform 150ms ease, box-shadow 150ms ease, border-color 150ms ease;
 }
 
 .card-arch:hover {
-  @apply shadow-arch-medium;
+  box-shadow: var(--shadow-float);
   transform: translateY(-2px);
+  border-color: rgba(30, 74, 61, 0.2);
 }
 
 .geo-grid {
   background-image:
-    linear-gradient(rgba(15, 23, 42, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(15, 23, 42, 0.03) 1px, transparent 1px);
+    linear-gradient(rgba(20, 22, 27, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(20, 22, 27, 0.04) 1px, transparent 1px);
   background-size: 40px 40px;
 }
 
 .accent-line {
-  @apply h-0.5 bg-accent;
+  height: 2px;
+  background-color: var(--ledger);
   transform-origin: left;
   animation: line-expand 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .geo-shape {
   position: absolute;
-  border: 1px solid rgba(249, 115, 22, 0.15);
+  border: 1px solid rgba(30, 74, 61, 0.2);
   pointer-events: none;
   animation: float-shape 12s ease-in-out infinite;
 }
@@ -162,20 +213,42 @@ body {
 }
 
 .badge-arch {
-  @apply inline-flex items-center px-2.5 py-1 rounded text-xs font-medium;
-  @apply bg-charcoal-900 text-white;
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: var(--r-pill);
+  font-size: 0.75rem;
+  font-weight: 500;
+  background-color: var(--paper-2);
+  color: var(--ink);
 }
 
 .badge-accent {
-  @apply bg-accent text-white;
+  background-color: var(--ledger-tint);
+  color: var(--ledger);
+}
+
+.badge-gold {
+  background-color: var(--gold-tint);
+  color: var(--gold);
+}
+
+.input-arch {
+  border-radius: var(--r-control);
+  border: 1px solid var(--line);
+  background-color: #ffffff;
+  color: var(--ink);
+  transition: border-color 150ms ease, box-shadow 150ms ease;
 }
 
 .input-arch:focus {
-  @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-white;
+  border-color: var(--ledger);
+  outline: 2px solid var(--ledger);
+  outline-offset: 2px;
 }
 
 .skeleton {
-  @apply bg-gradient-to-r from-charcoal-100 via-charcoal-50 to-charcoal-100;
+  background: linear-gradient(90deg, var(--paper-2) 0%, var(--paper) 50%, var(--paper-2) 100%);
   background-size: 200% 100%;
   animation: skeleton-shimmer 1.5s ease-in-out infinite;
 }
@@ -186,10 +259,10 @@ body {
 }
 
 .glass-arch {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(246, 247, 245, 0.88);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-bottom: 1px solid var(--line);
 }
 
 ::-webkit-scrollbar {
@@ -198,13 +271,25 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-charcoal-50;
+  background-color: var(--paper-2);
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-charcoal-300 rounded-full;
+  background-color: var(--slate-2);
+  border-radius: var(--r-pill);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-charcoal-400;
+  background-color: var(--slate);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

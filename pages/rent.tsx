@@ -21,7 +21,6 @@ export default function RentPage() {
         title="Flexible spaces for everyday living"
         description="Browse apartments and houses that are easy to compare, quick to scan, and ready for the next chapter."
         listings={listings}
-        accent="#111827"
       />
       <Footer />
     </>

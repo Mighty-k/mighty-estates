@@ -1,6 +1,5 @@
 import { useState, useMemo } from "react";
 import Head from "next/head";
-import Link from "next/link";
 import { sampleListings } from "../lib/sampleData";
 import ListingCard from "../components/ListingCard";
 import Header from "../components/Header";
@@ -90,31 +89,30 @@ export default function Search() {
     <>
       <Head>
         <title>Search Properties | Mighty Estates</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <Header />
-      <main className="min-h-screen bg-gradient-to-b from-charcoal-50 to-white">
-        <div className="max-w-7xl mx-auto px-6 py-10">
-          <div className="mb-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-accent/10 rounded-full mb-4">
-              <span className="w-1.5 h-1.5 bg-accent rounded-full" />
-              <span className="text-accent text-xs font-semibold uppercase tracking-wider">
+      <main className="min-h-screen bg-paper py-10 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-8">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-ledger-tint rounded-pill mb-3 border border-ledger/10">
+              <span className="w-1.5 h-1.5 bg-ledger rounded-pill" />
+              <span className="text-ledger text-xs font-semibold uppercase tracking-wider">
                 Property Search
               </span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-charcoal-900 mb-3">
+            <h1 className="font-display text-3xl md:text-4xl font-bold text-ink mb-2">
               Find Your Perfect Property
             </h1>
-            <p className="text-lg text-charcoal-600">
-              Search through{" "}
-              <span className="font-semibold text-accent">all</span> our premium
-              properties across Nigeria
+            <p className="text-base text-slate">
+              Search through <span className="font-semibold text-ledger">all</span> our premium properties across Nigeria
             </p>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-lg border border-charcoal-100 p-6 md:p-8 mb-10">
+          <div className="bg-white rounded-structural border border-line shadow-soft p-6 md:p-8 mb-8">
             <div className="flex flex-col md:flex-row gap-4">
               <div className="flex-1 relative">
-                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-charcoal-400">
+                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate">
                   <svg
                     className="w-5 h-5"
                     fill="none"
@@ -134,12 +132,12 @@ export default function Search() {
                   placeholder="Search by location, property name..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-12 pr-4 py-4 border border-charcoal-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent text-charcoal-900 placeholder:text-charcoal-400 transition-all"
+                  className="w-full pl-12 pr-4 py-3.5 bg-paper-2 border border-line rounded-control text-ink placeholder:text-slate-2 input-arch text-sm font-medium"
                 />
               </div>
               <button
                 onClick={() => setIsFiltersOpen(!isFiltersOpen)}
-                className="md:hidden px-6 py-4 bg-charcoal-100 text-charcoal-700 rounded-xl flex items-center justify-center gap-2 font-medium hover:bg-charcoal-200 transition-colors"
+                className="md:hidden px-6 py-3.5 bg-paper-2 text-ink rounded-control flex items-center justify-center gap-2 font-medium border border-line"
               >
                 <svg
                   className="w-5 h-5"
@@ -159,18 +157,20 @@ export default function Search() {
             </div>
 
             <div
-              className={`mt-6 pt-6 border-t border-charcoal-100 ${isFiltersOpen ? "block" : "hidden md:block"}`}
+              className={`mt-6 pt-6 border-t border-line ${
+                isFiltersOpen ? "block" : "hidden md:block"
+              }`}
             >
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div>
-                  <label className="block text-sm font-semibold text-charcoal-700 mb-2">
+                  <label className="block text-sm font-medium text-ink mb-2">
                     City
                   </label>
                   <div className="relative">
                     <select
                       value={selectedCity}
                       onChange={(e) => setSelectedCity(e.target.value)}
-                      className="w-full px-4 py-3 border border-charcoal-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent appearance-none bg-white cursor-pointer"
+                      className="w-full px-4 py-3 bg-paper-2 border border-line rounded-control text-ink cursor-pointer input-arch appearance-none text-sm font-medium"
                     >
                       {nigerianCities.map((city) => (
                         <option key={city} value={city}>
@@ -178,7 +178,7 @@ export default function Search() {
                         </option>
                       ))}
                     </select>
-                    <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-charcoal-400">
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate">
                       <svg
                         className="w-4 h-4"
                         fill="none"
@@ -197,14 +197,14 @@ export default function Search() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-charcoal-700 mb-2">
+                  <label className="block text-sm font-medium text-ink mb-2">
                     Property Type
                   </label>
                   <div className="relative">
                     <select
                       value={selectedType}
                       onChange={(e) => setSelectedType(e.target.value)}
-                      className="w-full px-4 py-3 border border-charcoal-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent appearance-none bg-white cursor-pointer"
+                      className="w-full px-4 py-3 bg-paper-2 border border-line rounded-control text-ink cursor-pointer input-arch appearance-none text-sm font-medium"
                     >
                       {propertyTypes.map((type) => (
                         <option key={type.value} value={type.value}>
@@ -212,7 +212,7 @@ export default function Search() {
                         </option>
                       ))}
                     </select>
-                    <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-charcoal-400">
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate">
                       <svg
                         className="w-4 h-4"
                         fill="none"
@@ -231,14 +231,14 @@ export default function Search() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-charcoal-700 mb-2">
+                  <label className="block text-sm font-medium text-ink mb-2">
                     Price Range
                   </label>
                   <div className="relative">
                     <select
                       value={selectedPrice}
                       onChange={(e) => setSelectedPrice(e.target.value)}
-                      className="w-full px-4 py-3 border border-charcoal-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent appearance-none bg-white cursor-pointer"
+                      className="w-full px-4 py-3 bg-paper-2 border border-line rounded-control text-ink cursor-pointer input-arch appearance-none text-sm font-medium"
                     >
                       {priceRanges.map((range) => (
                         <option key={range.value} value={range.value}>
@@ -246,7 +246,7 @@ export default function Search() {
                         </option>
                       ))}
                     </select>
-                    <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-charcoal-400">
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate">
                       <svg
                         className="w-4 h-4"
                         fill="none"
@@ -268,11 +268,11 @@ export default function Search() {
               <div className="mt-6 flex justify-between items-center">
                 <button
                   onClick={clearFilters}
-                  className="text-sm text-charcoal-500 hover:text-accent transition-colors font-medium"
+                  className="text-sm text-slate hover:text-ledger transition-colors font-medium"
                 >
                   Clear all filters
                 </button>
-                <button className="px-6 py-3 bg-accent text-white font-semibold rounded-xl hover:bg-accent-dark transition-all hover:shadow-lg hover:shadow-accent/25">
+                <button className="px-6 py-3 bg-ledger text-white font-medium rounded-control hover:bg-ledger-dim transition-all shadow-soft active:translate-y-[1px] text-sm">
                   Apply Filters
                 </button>
               </div>
@@ -281,14 +281,14 @@ export default function Search() {
 
           <div className="mb-8 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <span className="px-4 py-2 bg-charcoal-900 text-white rounded-full text-sm font-semibold">
+              <span className="px-3.5 py-1 bg-ledger text-white rounded-pill text-xs font-mono font-semibold shadow-soft">
                 {filteredListings.length}
               </span>
-              <span className="text-charcoal-600">properties found</span>
+              <span className="text-slate text-sm">properties found</span>
             </div>
-            <div className="flex items-center gap-3 bg-white px-4 py-2 rounded-xl border border-charcoal-100">
-              <span className="text-sm text-charcoal-500">Sort by:</span>
-              <select className="text-sm border-none bg-transparent focus:outline-none cursor-pointer font-medium text-charcoal-700">
+            <div className="flex items-center gap-3 bg-white px-4 py-2 rounded-control border border-line shadow-soft">
+              <span className="text-xs text-slate">Sort by:</span>
+              <select className="text-sm border-none bg-transparent focus:outline-none cursor-pointer font-medium text-ink">
                 <option>Newest First</option>
                 <option>Price: Low to High</option>
                 <option>Price: High to Low</option>
@@ -298,7 +298,7 @@ export default function Search() {
           </div>
 
           {filteredListings.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredListings.map((listing, index) => (
                 <div
                   key={listing.id}
@@ -313,10 +313,10 @@ export default function Search() {
               ))}
             </div>
           ) : (
-            <div className="text-center py-20 bg-white rounded-2xl border border-charcoal-100">
-              <div className="inline-flex items-center justify-center w-20 h-20 bg-charcoal-100 rounded-full mb-6">
+            <div className="text-center py-20 bg-white rounded-structural border border-line shadow-soft">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-paper-2 rounded-pill mb-4 text-slate">
                 <svg
-                  className="w-10 h-10 text-charcoal-400"
+                  className="w-8 h-8"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -329,16 +329,16 @@ export default function Search() {
                   />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-charcoal-800 mb-3">
+              <h3 className="font-display text-2xl font-bold text-ink mb-2">
                 No properties found
               </h3>
-              <p className="text-charcoal-500 mb-8 max-w-md mx-auto">
-                We couldn't find any properties matching your criteria. Try
+              <p className="text-slate mb-6 max-w-md mx-auto text-sm">
+                We couldn&apos;t find any properties matching your criteria. Try
                 adjusting your filters or search terms.
               </p>
               <button
                 onClick={clearFilters}
-                className="px-8 py-4 bg-accent text-white font-semibold rounded-xl hover:bg-accent-dark transition-all hover:shadow-lg hover:shadow-accent/25"
+                className="px-6 py-3 bg-ledger text-white font-medium rounded-control hover:bg-ledger-dim transition-all shadow-soft text-sm"
               >
                 Clear All Filters
               </button>

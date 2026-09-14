@@ -1,71 +1,49 @@
 import Link from "next/link";
 import { useState } from "react";
+
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <header className="glass-arch sticky top-0 z-40 border-b border-charcoal-100">
+    <header className="glass-arch sticky top-0 z-40">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-md bg-charcoal-900 flex items-center justify-center text-white font-semibold text-sm tracking-wider">
-            <img src="/M.png" alt="Mighty Estates" />
+          <div className="w-10 h-10 rounded-control bg-ledger flex items-center justify-center text-white font-bold text-sm tracking-wider shadow-soft">
+            <img src="/M.png" alt="Mighty Estates" className="w-6 h-6 object-contain" />
           </div>
-          <span className="font-display text-lg font-semibold text-charcoal-900">
+          <span className="font-display text-lg font-semibold text-ink tracking-tight">
             Mighty Estates
           </span>
         </Link>
+
         <nav className="hidden md:flex items-center gap-8">
-          <Link
-            href="/buy"
-            className="text-sm font-medium text-charcoal-600 hover:text-charcoal-900 transition-colors relative group"
-          >
-            Buy
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
-          </Link>
-          <Link
-            href="/rent"
-            className="text-sm font-medium text-charcoal-600 hover:text-charcoal-900 transition-colors relative group"
-          >
-            Rent
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
-          </Link>
-          <Link
-            href="/commercial"
-            className="text-sm font-medium text-charcoal-600 hover:text-charcoal-900 transition-colors relative group"
-          >
-            Commercial
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
-          </Link>
-          <Link
-            href="/new-listings"
-            className="text-sm font-medium text-charcoal-600 hover:text-charcoal-900 transition-colors relative group"
-          >
-            New
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
-          </Link>
-          <Link
-            href="/agents"
-            className="text-sm font-medium text-charcoal-600 hover:text-charcoal-900 transition-colors relative group"
-          >
-            Agents
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
-          </Link>
-          <Link
-            href="/search"
-            className="text-sm font-medium text-charcoal-600 hover:text-charcoal-900 transition-colors relative group"
-          >
-            Search
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
-          </Link>
+          {[
+            { href: "/buy", label: "Buy" },
+            { href: "/rent", label: "Rent" },
+            { href: "/commercial", label: "Commercial" },
+            { href: "/new-listings", label: "New" },
+            { href: "/agents", label: "Agents" },
+            { href: "/search", label: "Search" },
+          ].map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="text-sm font-medium text-slate hover:text-ink transition-colors relative group py-1"
+            >
+              {item.label}
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-ledger transition-all duration-150 group-hover:w-full" />
+            </Link>
+          ))}
         </nav>
+
         <div className="flex items-center gap-4">
           <Link
             href="/contact"
-            className="hidden md:inline-flex items-center gap-2 px-4 py-2 bg-charcoal-900 text-white text-sm font-medium rounded-md hover:bg-charcoal-800 transition-colors"
+            className="hidden md:inline-flex items-center gap-2 px-4 py-2 bg-ledger text-white text-sm font-medium rounded-control hover:bg-ledger-dim transition-colors shadow-soft"
           >
             List Property
           </Link>
           <button
-            className="md:hidden p-2 text-charcoal-600"
+            className="md:hidden p-2 text-slate hover:text-ink"
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
           >
@@ -94,45 +72,26 @@ export default function Header() {
           </button>
         </div>
       </div>
+
       {isOpen && (
-        <div className="md:hidden border-t border-charcoal-100 bg-white px-6 py-4">
+        <div className="md:hidden border-t border-line bg-paper px-6 py-4">
           <nav className="flex flex-col gap-3">
-            <Link
-              href="/buy"
-              className="text-sm font-medium text-charcoal-600 hover:text-charcoal-900 py-2"
-            >
-              Buy
-            </Link>
-            <Link
-              href="/rent"
-              className="text-sm font-medium text-charcoal-600 hover:text-charcoal-900 py-2"
-            >
-              Rent
-            </Link>
-            <Link
-              href="/commercial"
-              className="text-sm font-medium text-charcoal-600 hover:text-charcoal-900 py-2"
-            >
-              Commercial
-            </Link>
-            <Link
-              href="/new-listings"
-              className="text-sm font-medium text-charcoal-600 hover:text-charcoal-900 py-2"
-            >
-              New
-            </Link>
-            <Link
-              href="/agents"
-              className="text-sm font-medium text-charcoal-600 hover:text-charcoal-900 py-2"
-            >
-              Agents
-            </Link>
-            <Link
-              href="/search"
-              className="text-sm font-medium text-charcoal-600 hover:text-charcoal-900 py-2"
-            >
-              Search
-            </Link>
+            {[
+              { href: "/buy", label: "Buy" },
+              { href: "/rent", label: "Rent" },
+              { href: "/commercial", label: "Commercial" },
+              { href: "/new-listings", label: "New" },
+              { href: "/agents", label: "Agents" },
+              { href: "/search", label: "Search" },
+            ].map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="text-sm font-medium text-slate hover:text-ink py-2"
+              >
+                {item.label}
+              </Link>
+            ))}
           </nav>
         </div>
       )}

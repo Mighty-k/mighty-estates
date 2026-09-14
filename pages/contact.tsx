@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Head from "next/head";
-// import Link from "next/link"
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
@@ -46,30 +45,30 @@ export default function Contact() {
     <>
       <Head>
         <title>Contact Us | Mighty Estates</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <Header />
-      <main className="min-h-screen bg-charcoal-50">
-        <div className="max-w-7xl mx-auto px-6 py-16">
+      <main className="min-h-screen bg-paper py-16 px-6">
+        <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-display font-bold text-charcoal-900 mb-4">
+            <h1 className="font-display text-4xl font-bold text-ink mb-3">
               Get in Touch
             </h1>
-            <p className="text-lg text-charcoal-600 max-w-2xl mx-auto">
+            <p className="text-base text-slate max-w-2xl mx-auto leading-relaxed">
               Have questions about a property or need help finding your dream
               home? Our team is here to help.
             </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div className="bg-white rounded-lg shadow-sm border border-charcoal-100 p-8">
-              <h2 className="text-2xl font-semibold text-charcoal-900 mb-6">
+            <div className="card-arch p-8">
+              <h2 className="font-display text-2xl font-semibold text-ink mb-6">
                 Send us a Message
               </h2>
 
               {submitStatus === "success" && (
-                <div className="mb-6 p-4 bg-emerald-50 border border-emerald-200 rounded-md text-emerald-700">
-                  Thank you for your message! We'll get back to you within 24
-                  hours.
+                <div className="mb-6 p-4 bg-ledger-tint border border-ledger/20 rounded-control text-ledger text-sm font-medium">
+                  Thank you for your message! We will get back to you within 24 hours.
                 </div>
               )}
 
@@ -77,7 +76,7 @@ export default function Contact() {
                 <div>
                   <label
                     htmlFor="name"
-                    className="block text-sm font-medium text-charcoal-700 mb-1"
+                    className="block text-sm font-medium text-ink mb-1.5"
                   >
                     Full Name *
                   </label>
@@ -88,7 +87,7 @@ export default function Contact() {
                     required
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-charcoal-200 rounded-md focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
+                    className="w-full px-4 py-3 border border-line rounded-control text-ink bg-white input-arch text-sm"
                     placeholder="Your full name"
                   />
                 </div>
@@ -97,7 +96,7 @@ export default function Contact() {
                   <div>
                     <label
                       htmlFor="email"
-                      className="block text-sm font-medium text-charcoal-700 mb-1"
+                      className="block text-sm font-medium text-ink mb-1.5"
                     >
                       Email Address *
                     </label>
@@ -108,14 +107,14 @@ export default function Contact() {
                       required
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-charcoal-200 rounded-md focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
+                      className="w-full px-4 py-3 border border-line rounded-control text-ink bg-white input-arch text-sm"
                       placeholder="your@email.com"
                     />
                   </div>
                   <div>
                     <label
                       htmlFor="phone"
-                      className="block text-sm font-medium text-charcoal-700 mb-1"
+                      className="block text-sm font-medium text-ink mb-1.5"
                     >
                       Phone Number
                     </label>
@@ -125,7 +124,7 @@ export default function Contact() {
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-charcoal-200 rounded-md focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
+                      className="w-full px-4 py-3 border border-line rounded-control text-ink bg-white input-arch text-sm"
                       placeholder="+234 800 000 0000"
                     />
                   </div>
@@ -134,16 +133,16 @@ export default function Contact() {
                 <div>
                   <label
                     htmlFor="propertyType"
-                    className="block text-sm font-medium text-charcoal-700 mb-1"
+                    className="block text-sm font-medium text-ink mb-1.5"
                   >
-                    I'm interested in
+                    I&apos;m interested in
                   </label>
                   <select
                     id="propertyType"
                     name="propertyType"
                     value={formData.propertyType}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-charcoal-200 rounded-md focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
+                    className="w-full px-4 py-3 border border-line rounded-control text-ink bg-white input-arch text-sm"
                   >
                     <option value="">Select property type</option>
                     <option value="buy">Buying a property</option>
@@ -159,7 +158,7 @@ export default function Contact() {
                 <div>
                   <label
                     htmlFor="message"
-                    className="block text-sm font-medium text-charcoal-700 mb-1"
+                    className="block text-sm font-medium text-ink mb-1.5"
                   >
                     Message *
                   </label>
@@ -170,7 +169,7 @@ export default function Contact() {
                     rows={5}
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-charcoal-200 rounded-md focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent resize-none"
+                    className="w-full px-4 py-3 border border-line rounded-control text-ink bg-white input-arch text-sm resize-none"
                     placeholder="Tell us more about what you're looking for..."
                   />
                 </div>
@@ -178,7 +177,7 @@ export default function Contact() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-3 px-6 bg-charcoal-900 text-white font-medium rounded-md hover:bg-charcoal-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full py-3.5 px-6 bg-ledger text-white font-medium rounded-control hover:bg-ledger-dim transition-all shadow-soft active:translate-y-[1px] disabled:opacity-50 disabled:cursor-not-allowed text-sm"
                 >
                   {isSubmitting ? "Sending..." : "Send Message"}
                 </button>
@@ -186,15 +185,15 @@ export default function Contact() {
             </div>
 
             <div className="space-y-8">
-              <div className="bg-white rounded-lg shadow-sm border border-charcoal-100 p-8">
-                <h2 className="text-2xl font-semibold text-charcoal-900 mb-6">
+              <div className="card-arch p-8">
+                <h2 className="font-display text-2xl font-semibold text-ink mb-6">
                   Contact Information
                 </h2>
                 <div className="space-y-6">
                   <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
+                    <div className="w-10 h-10 rounded-control bg-ledger-tint flex items-center justify-center flex-shrink-0 text-ledger">
                       <svg
-                        className="w-5 h-5 text-accent"
+                        className="w-5 h-5"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -214,10 +213,10 @@ export default function Contact() {
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-charcoal-900">
+                      <h3 className="font-display font-semibold text-ink">
                         Head Office
                       </h3>
-                      <p className="text-charcoal-600 mt-1">
+                      <p className="text-slate text-sm mt-1 leading-relaxed">
                         Victoria Island
                         <br />
                         Lagos, Nigeria
@@ -226,9 +225,9 @@ export default function Contact() {
                   </div>
 
                   <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
+                    <div className="w-10 h-10 rounded-control bg-ledger-tint flex items-center justify-center flex-shrink-0 text-ledger">
                       <svg
-                        className="w-5 h-5 text-accent"
+                        className="w-5 h-5"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -242,8 +241,8 @@ export default function Contact() {
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-charcoal-900">Phone</h3>
-                      <p className="text-charcoal-600 mt-1">
+                      <h3 className="font-display font-semibold text-ink">Phone</h3>
+                      <p className="text-slate text-sm mt-1 leading-relaxed">
                         +234 000 123 4567
                         <br />
                         +234 111 222 3333
@@ -252,9 +251,9 @@ export default function Contact() {
                   </div>
 
                   <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
+                    <div className="w-10 h-10 rounded-control bg-ledger-tint flex items-center justify-center flex-shrink-0 text-ledger">
                       <svg
-                        className="w-5 h-5 text-accent"
+                        className="w-5 h-5"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -268,8 +267,8 @@ export default function Contact() {
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-charcoal-900">Email</h3>
-                      <p className="text-charcoal-600 mt-1">
+                      <h3 className="font-display font-semibold text-ink">Email</h3>
+                      <p className="text-slate text-sm mt-1 leading-relaxed">
                         info@mightyestates.com
                         <br />
                         sales@mightyestates.com
@@ -279,37 +278,37 @@ export default function Contact() {
                 </div>
               </div>
 
-              <div className="bg-white rounded-lg shadow-sm border border-charcoal-100 p-8">
-                <h2 className="text-2xl font-semibold text-charcoal-900 mb-6">
+              <div className="card-arch p-8">
+                <h2 className="font-display text-2xl font-semibold text-ink mb-6">
                   Office Hours
                 </h2>
-                <div className="space-y-3 text-charcoal-600">
-                  <div className="flex justify-between">
+                <div className="space-y-3 text-slate text-sm">
+                  <div className="flex justify-between border-b border-line/60 pb-2">
                     <span>Monday - Friday</span>
-                    <span className="font-medium">8:00 AM - 6:00 PM</span>
+                    <span className="font-semibold text-ink">8:00 AM - 6:00 PM</span>
                   </div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between border-b border-line/60 pb-2">
                     <span>Saturday</span>
-                    <span className="font-medium">9:00 AM - 4:00 PM</span>
+                    <span className="font-semibold text-ink">9:00 AM - 4:00 PM</span>
                   </div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between pt-1">
                     <span>Sunday</span>
-                    <span className="font-medium">By Appointment</span>
+                    <span className="font-semibold text-ink">By Appointment</span>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-gradient-to-br from-accent to-accent/80 rounded-lg p-8 text-white">
-                <h3 className="text-xl font-semibold mb-3">
+              <div className="bg-ink rounded-structural p-8 text-white shadow-float border border-line/20">
+                <h3 className="font-display text-xl font-bold mb-3">
                   List Your Property
                 </h3>
-                <p className="text-white/80 mb-4">
+                <p className="text-slate-2 text-sm mb-6 leading-relaxed">
                   Want to sell or rent your property? Get a free valuation from
                   our expert team.
                 </p>
                 <a
                   href="tel:+2348006337827"
-                  className="inline-block px-6 py-3 bg-white text-accent font-medium rounded-md hover:bg-white/90 transition-colors"
+                  className="inline-block px-6 py-3 bg-ledger text-white text-sm font-medium rounded-control hover:bg-ledger-dim transition-colors shadow-soft"
                 >
                   Call for Valuation
                 </a>

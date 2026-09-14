@@ -7,6 +7,7 @@ import { Listing } from "../../types/listing";
 import { sampleListings } from "../../lib/sampleData";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import ListingCard from "../../components/ListingCard";
 
 type Props = { listing: Listing };
 
@@ -24,28 +25,32 @@ export default function ListingPage({ listing }: Props) {
           name="description"
           content={listing.summary || listing.description}
         />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <Header />
-      <main className="min-h-screen bg-gradient-to-b from-charcoal-50 to-white">
-        <div className="max-w-7xl mx-auto px-6 py-8">
-          <div className="mb-6 flex items-center gap-2 text-sm text-charcoal-500">
-            <Link href="/" className="hover:text-accent transition-colors">
+      <main className="min-h-screen bg-paper py-8 px-6">
+        <div className="max-w-7xl mx-auto">
+          {/* Breadcrumbs */}
+          <div className="mb-6 flex items-center gap-2 text-sm text-slate">
+            <Link href="/" className="hover:text-ledger transition-colors">
               Home
             </Link>
             <span>/</span>
             <Link
               href="/search"
-              className="hover:text-accent transition-colors"
+              className="hover:text-ledger transition-colors"
             >
               Properties
             </Link>
             <span>/</span>
-            <span className="text-charcoal-800">{listing.title}</span>
+            <span className="text-ink font-medium truncate">
+              {listing.title}
+            </span>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
             <div className="lg:col-span-2">
-              <div className="relative aspect-[16/10] rounded-2xl overflow-hidden mb-4 group">
+              <div className="relative aspect-[16/10] rounded-structural overflow-hidden mb-4 group shadow-soft border border-line">
                 <Image
                   src={allImages[selectedImage]}
                   alt={listing.title}
@@ -53,27 +58,30 @@ export default function ListingPage({ listing }: Props) {
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                   priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-charcoal-900/40 via-transparent to-transparent" />
-                {listing.badges && listing.badges.includes("new") && (
-                  <div className="absolute left-4 top-4">
-                    <span className="px-3 py-1.5 bg-accent text-white text-xs font-semibold uppercase tracking-wider rounded-full">
+                <div className="absolute inset-0 bg-gradient-to-t from-ink/40 via-transparent to-transparent" />
+
+                <div className="absolute left-4 top-4 flex gap-2">
+                  {listing.badges && listing.badges.includes("new") && (
+                    <span className="badge-arch badge-gold font-semibold shadow-soft">
                       New Listing
                     </span>
-                  </div>
-                )}
-                {listing.featured && (
-                  <div className="absolute left-4 top-4">
-                    <span className="px-3 py-1.5 bg-emerald-600 text-white text-xs font-semibold uppercase tracking-wider rounded-full">
+                  )}
+                  {listing.featured && (
+                    <span className="badge-arch badge-accent font-semibold shadow-soft">
                       Featured
                     </span>
-                  </div>
-                )}
+                  )}
+                </div>
+
                 <button
                   onClick={() => setIsSaved(!isSaved)}
-                  className="absolute right-4 top-4 w-11 h-11 rounded-full bg-white/90 backdrop-blur flex items-center justify-center hover:bg-white hover:scale-110 transition-all shadow-lg"
+                  className="absolute right-4 top-4 w-10 h-10 rounded-pill bg-white/90 backdrop-blur flex items-center justify-center hover:bg-white hover:scale-105 transition-all shadow-soft"
+                  aria-label={isSaved ? "Remove from saved" : "Save listing"}
                 >
                   <svg
-                    className={`w-6 h-6 transition-colors ${isSaved ? "text-accent fill-accent" : "text-charcoal-600"}`}
+                    className={`w-5 h-5 transition-colors ${
+                      isSaved ? "text-ledger fill-ledger" : "text-slate"
+                    }`}
                     fill={isSaved ? "currentColor" : "none"}
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -86,16 +94,22 @@ export default function ListingPage({ listing }: Props) {
                     />
                   </svg>
                 </button>
-                <div className="absolute bottom-4 right-4 px-3 py-1.5 bg-charcoal-900/70 text-white text-sm rounded-full backdrop-blur">
+                <div className="absolute bottom-4 right-4 px-3 py-1 bg-ink/80 text-white text-xs font-mono rounded-pill backdrop-blur">
                   {selectedImage + 1} / {allImages.length}
                 </div>
               </div>
+
+              {/* Thumbnails */}
               <div className="flex gap-3 overflow-x-auto pb-2">
                 {allImages.map((img, i) => (
                   <button
                     key={i}
                     onClick={() => setSelectedImage(i)}
-                    className={`relative w-24 h-20 rounded-xl overflow-hidden flex-shrink-0 transition-all ${selectedImage === i ? "ring-2 ring-accent ring-offset-2" : "opacity-60 hover:opacity-100"}`}
+                    className={`relative w-24 h-20 rounded-control overflow-hidden flex-shrink-0 transition-all border ${
+                      selectedImage === i
+                        ? "border-ledger outline outline-2 outline-ledger"
+                        : "border-line opacity-60 hover:opacity-100"
+                    }`}
                   >
                     <Image
                       src={img}
@@ -108,15 +122,24 @@ export default function ListingPage({ listing }: Props) {
               </div>
             </div>
 
+            {/* Sidebar Pricing & Actions */}
             <div className="lg:col-span-1">
-              <div className="bg-white rounded-2xl shadow-lg border border-charcoal-100 p-6 sticky top-8">
-                <div className="mb-6">
-                  <h1 className="text-2xl md:text-3xl font-bold text-charcoal-900 mb-2">
+              <div className="card-arch p-6 sticky top-24">
+                <div className="mb-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs font-mono font-medium text-slate-2 uppercase">
+                      SPEC-ID: {listing.id.toUpperCase()}
+                    </span>
+                    <span className="badge-arch bg-paper-2 text-slate text-xs uppercase">
+                      {listing.type}
+                    </span>
+                  </div>
+                  <h1 className="font-display text-2xl font-bold text-ink mb-2 leading-tight">
                     {listing.title}
                   </h1>
-                  <p className="text-charcoal-500 flex items-center gap-2">
+                  <p className="text-slate text-sm flex items-center gap-1.5">
                     <svg
-                      className="w-5 h-5 text-accent"
+                      className="w-4 h-4 text-ledger shrink-0"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -139,20 +162,20 @@ export default function ListingPage({ listing }: Props) {
                   </p>
                 </div>
 
-                <div className="text-3xl font-bold text-accent mb-6">
+                <div className="font-display text-3xl font-bold text-ledger mb-6">
                   {listing.priceCurrency}
                   {listing.price.toLocaleString()}
-                  <span className="text-base font-normal text-charcoal-500 ml-1">
+                  <span className="text-sm font-normal text-slate ml-1">
                     {listing.type === "commercial" ? "/year" : ""}
                   </span>
                 </div>
 
-                <div className="grid grid-cols-3 gap-4 mb-6 py-6 border-y border-charcoal-100">
+                <div className="grid grid-cols-3 gap-3 mb-6 py-4 border-y border-line">
                   {listing.bedrooms && (
                     <div className="text-center">
-                      <div className="w-12 h-12 mx-auto mb-2 bg-accent/10 rounded-xl flex items-center justify-center">
+                      <div className="w-10 h-10 mx-auto mb-1 bg-ledger-tint rounded-control flex items-center justify-center text-ledger">
                         <svg
-                          className="w-6 h-6 text-accent"
+                          className="w-5 h-5"
                           fill="none"
                           viewBox="0 0 24 24"
                           stroke="currentColor"
@@ -160,24 +183,24 @@ export default function ListingPage({ listing }: Props) {
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
-                            strokeWidth={2}
+                            strokeWidth={1.8}
                             d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
                           />
                         </svg>
                       </div>
-                      <div className="text-lg font-bold text-charcoal-900">
+                      <div className="font-display text-base font-bold text-ink">
                         {listing.bedrooms}
                       </div>
-                      <div className="text-xs text-charcoal-500 uppercase tracking-wide">
+                      <div className="text-[11px] text-slate-2 uppercase tracking-wide">
                         Bedrooms
                       </div>
                     </div>
                   )}
                   {listing.bathrooms && (
                     <div className="text-center">
-                      <div className="w-12 h-12 mx-auto mb-2 bg-accent/10 rounded-xl flex items-center justify-center">
+                      <div className="w-10 h-10 mx-auto mb-1 bg-ledger-tint rounded-control flex items-center justify-center text-ledger">
                         <svg
-                          className="w-6 h-6 text-accent"
+                          className="w-5 h-5"
                           fill="none"
                           viewBox="0 0 24 24"
                           stroke="currentColor"
@@ -185,24 +208,24 @@ export default function ListingPage({ listing }: Props) {
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
-                            strokeWidth={2}
+                            strokeWidth={1.8}
                             d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"
                           />
                         </svg>
                       </div>
-                      <div className="text-lg font-bold text-charcoal-900">
+                      <div className="font-display text-base font-bold text-ink">
                         {listing.bathrooms}
                       </div>
-                      <div className="text-xs text-charcoal-500 uppercase tracking-wide">
+                      <div className="text-[11px] text-slate-2 uppercase tracking-wide">
                         Bathrooms
                       </div>
                     </div>
                   )}
                   {listing.sizeSqm && (
                     <div className="text-center">
-                      <div className="w-12 h-12 mx-auto mb-2 bg-accent/10 rounded-xl flex items-center justify-center">
+                      <div className="w-10 h-10 mx-auto mb-1 bg-ledger-tint rounded-control flex items-center justify-center text-ledger">
                         <svg
-                          className="w-6 h-6 text-accent"
+                          className="w-5 h-5"
                           fill="none"
                           viewBox="0 0 24 24"
                           stroke="currentColor"
@@ -210,15 +233,15 @@ export default function ListingPage({ listing }: Props) {
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
-                            strokeWidth={2}
+                            strokeWidth={1.8}
                             d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
                           />
                         </svg>
                       </div>
-                      <div className="text-lg font-bold text-charcoal-900">
+                      <div className="font-display text-base font-bold text-ink">
                         {listing.sizeSqm}
                       </div>
-                      <div className="text-xs text-charcoal-500 uppercase tracking-wide">
+                      <div className="text-[11px] text-slate-2 uppercase tracking-wide">
                         Sq Meters
                       </div>
                     </div>
@@ -226,25 +249,25 @@ export default function ListingPage({ listing }: Props) {
                 </div>
 
                 <div className="space-y-3">
-                  <button className="w-full py-4 bg-accent hover:bg-accent-dark text-white font-semibold rounded-xl transition-all hover:shadow-lg hover:shadow-accent/25">
+                  <button className="w-full py-3.5 bg-ledger hover:bg-ledger-dim text-white font-medium rounded-control transition-all shadow-soft active:translate-y-[1px] text-sm">
                     Request Tour
                   </button>
-                  <button className="w-full py-4 bg-charcoal-900 hover:bg-charcoal-800 text-white font-semibold rounded-xl transition-all">
+                  <button className="w-full py-3.5 bg-ledger-tint text-ledger hover:bg-ledger-tint/80 border border-ledger/10 font-medium rounded-control transition-all active:translate-y-[1px] text-sm">
                     Contact Agent
                   </button>
                 </div>
 
-                <div className="mt-6 pt-6 border-t border-charcoal-100">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center">
-                      <span className="text-accent font-bold text-lg">ME</span>
+                <div className="mt-6 pt-6 border-t border-line">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-ledger rounded-control flex items-center justify-center text-white font-bold text-sm">
+                      ME
                     </div>
                     <div>
-                      <div className="font-semibold text-charcoal-900">
+                      <div className="font-display font-semibold text-ink text-sm">
                         Mighty Estates
                       </div>
-                      <div className="text-sm text-charcoal-500">
-                        Verified Agent
+                      <div className="text-xs text-slate">
+                        Verified Platform Partner
                       </div>
                     </div>
                   </div>
@@ -253,13 +276,14 @@ export default function ListingPage({ listing }: Props) {
             </div>
           </div>
 
+          {/* Detailed Content & Specifications */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2 space-y-8">
-              <section className="bg-white rounded-2xl shadow-lg border border-charcoal-100 p-8">
-                <h2 className="text-2xl font-bold text-charcoal-900 mb-6">
+              <section className="card-arch p-8">
+                <h2 className="font-display text-2xl font-semibold text-ink mb-4">
                   About This Property
                 </h2>
-                <p className="text-charcoal-600 leading-relaxed text-lg">
+                <p className="text-slate leading-relaxed text-base">
                   {listing.description ||
                     listing.summary ||
                     `This is a stunning ${listing.type} located in the heart of ${listing.address.city}. With ${listing.bedrooms} bedrooms and ${listing.bathrooms} bathrooms, this property offers ample living space of ${listing.sizeSqm} square meters. Perfect for families or professionals seeking a comfortable and luxurious living experience.`}
@@ -267,19 +291,19 @@ export default function ListingPage({ listing }: Props) {
               </section>
 
               {listing.amenities && listing.amenities.length > 0 && (
-                <section className="bg-white rounded-2xl shadow-lg border border-charcoal-100 p-8">
-                  <h2 className="text-2xl font-bold text-charcoal-900 mb-6">
+                <section className="card-arch p-8">
+                  <h2 className="font-display text-2xl font-semibold text-ink mb-4">
                     Amenities & Features
                   </h2>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                     {listing.amenities.map((amenity, i) => (
                       <div
                         key={i}
-                        className="flex items-center gap-3 p-3 bg-charcoal-50 rounded-xl"
+                        className="flex items-center gap-2.5 p-3 bg-paper-2 rounded-control border border-line/60"
                       >
-                        <div className="w-8 h-8 bg-accent/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <div className="w-6 h-6 bg-ledger-tint rounded-pill flex items-center justify-center flex-shrink-0 text-ledger">
                           <svg
-                            className="w-4 h-4 text-accent"
+                            className="w-3.5 h-3.5"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
@@ -292,7 +316,7 @@ export default function ListingPage({ listing }: Props) {
                             />
                           </svg>
                         </div>
-                        <span className="text-charcoal-700 font-medium">
+                        <span className="text-ink text-xs font-medium">
                           {amenity}
                         </span>
                       </div>
@@ -301,11 +325,11 @@ export default function ListingPage({ listing }: Props) {
                 </section>
               )}
 
-              <section className="bg-white rounded-2xl shadow-lg border border-charcoal-100 p-8">
-                <h2 className="text-2xl font-bold text-charcoal-900 mb-6">
+              <section className="card-arch p-8">
+                <h2 className="font-display text-2xl font-semibold text-ink mb-4">
                   Property Details
                 </h2>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-3">
                   {[
                     {
                       label: "Property Type",
@@ -343,71 +367,38 @@ export default function ListingPage({ listing }: Props) {
                   ].map((item, i) => (
                     <div
                       key={i}
-                      className="flex justify-between p-4 bg-charcoal-50 rounded-xl"
+                      className="flex justify-between p-3 bg-paper-2 rounded-control text-sm border border-line/60"
                     >
-                      <span className="text-charcoal-500">{item.label}</span>
-                      <span className="font-semibold text-charcoal-900">
+                      <span className="text-slate">{item.label}</span>
+                      <span className="font-semibold text-ink">
                         {item.value}
                       </span>
                     </div>
                   ))}
                 </div>
               </section>
-
-              <section className="bg-white rounded-2xl shadow-lg border border-charcoal-100 p-8">
-                <h2 className="text-2xl font-bold text-charcoal-900 mb-6">
-                  Location
-                </h2>
-                <div className="aspect-video bg-charcoal-100 rounded-xl flex items-center justify-center">
-                  <div className="text-center">
-                    <svg
-                      className="w-12 h-12 mx-auto text-charcoal-400 mb-3"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={1.5}
-                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                      />
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={1.5}
-                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                      />
-                    </svg>
-                    <p className="text-charcoal-500">View on map</p>
-                    <p className="text-sm text-charcoal-400 mt-1">
-                      {listing.address.line1}, {listing.address.city}
-                    </p>
-                  </div>
-                </div>
-              </section>
             </div>
 
             <div className="lg:col-span-1">
-              <div className="bg-gradient-to-br from-charcoal-900 to-charcoal-800 rounded-2xl p-8 text-white sticky top-8">
-                <h3 className="text-xl font-bold mb-4">
+              <div className="bg-ink rounded-structural p-8 text-white shadow-float border border-line/20 sticky top-24">
+                <h3 className="font-display text-xl font-bold mb-3">
                   Ready to make this property yours?
                 </h3>
-                <p className="text-charcoal-300 mb-6">
+                <p className="text-slate-2 text-sm mb-6 leading-relaxed">
                   Schedule a viewing with one of our expert agents today.
                 </p>
                 <div className="space-y-3">
-                  <button className="w-full py-3.5 bg-accent hover:bg-accent-dark font-semibold rounded-xl transition-all">
+                  <button className="w-full py-3.5 bg-ledger hover:bg-ledger-dim font-medium rounded-control transition-all text-sm active:translate-y-[1px] shadow-soft">
                     Book a Viewing
                   </button>
-                  <button className="w-full py-3.5 bg-white/10 hover:bg-white/20 font-semibold rounded-xl transition-all backdrop-blur">
+                  <button className="w-full py-3.5 bg-paper/10 hover:bg-paper/20 text-white font-medium rounded-control transition-all text-sm backdrop-blur border border-white/20 active:translate-y-[1px]">
                     Call Agent
                   </button>
                 </div>
                 <div className="mt-6 pt-6 border-t border-white/10">
-                  <div className="flex items-center gap-3 text-sm text-charcoal-300">
+                  <div className="flex items-center gap-3 text-xs font-mono text-slate-2">
                     <svg
-                      className="w-5 h-5"
+                      className="w-4 h-4 text-ledger-tint"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -426,19 +417,20 @@ export default function ListingPage({ listing }: Props) {
             </div>
           </div>
 
+          {/* Similar Properties */}
           <section className="mt-16">
             <div className="flex items-end justify-between mb-8">
               <div>
-                <p className="text-accent text-sm font-semibold tracking-[0.25em] uppercase mb-3">
+                <p className="text-ledger text-xs font-semibold tracking-[0.25em] uppercase mb-2">
                   You Might Like
                 </p>
-                <h2 className="text-3xl md:text-4xl font-bold text-charcoal-900">
+                <h2 className="font-display text-3xl font-bold text-ink">
                   Similar Properties
                 </h2>
               </div>
               <Link
                 href="/search"
-                className="hidden md:inline-flex items-center gap-2 text-sm font-medium text-charcoal-600 hover:text-accent transition-colors group"
+                className="hidden md:inline-flex items-center gap-2 text-sm font-medium text-slate hover:text-ledger transition-colors group"
               >
                 View all
                 <svg
@@ -456,36 +448,14 @@ export default function ListingPage({ listing }: Props) {
                 </svg>
               </Link>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {sampleListings
                 .filter((l) => l.id !== listing.id)
                 .slice(0, 3)
                 .map((l) => (
-                  <Link
-                    key={l.id}
-                    href={`/listing/${l.id}`}
-                    className="group block"
-                  >
-                    <div className="relative aspect-[4/3] rounded-xl overflow-hidden mb-4">
-                      <Image
-                        src={l.mainImage}
-                        alt={l.title}
-                        fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-charcoal-900/30 via-transparent to-transparent" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-charcoal-900 group-hover:text-accent transition-colors">
-                      {l.title}
-                    </h3>
-                    <p className="text-charcoal-500 text-sm mt-1">
-                      {l.address.city}
-                    </p>
-                    <p className="text-accent font-bold mt-2">
-                      {l.priceCurrency}
-                      {l.price.toLocaleString()}
-                    </p>
-                  </Link>
+                  <div key={l.id}>
+                    <ListingCard listing={l} />
+                  </div>
                 ))}
             </div>
           </section>

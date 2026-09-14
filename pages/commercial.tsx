@@ -21,7 +21,6 @@ export default function CommercialPage() {
         title="Spaces that support serious business"
         description="Light-filled offices and strategic retail properties for teams, founders, and investors who value location and presence."
         listings={listings}
-        accent="#7c2d12"
       />
       <Footer />
     </>

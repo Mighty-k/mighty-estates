@@ -21,7 +21,6 @@ export default function BuyPage() {
         title="Homes designed for long-term living"
         description="Explore elegant homes and apartments curated for buyers who want clarity, quality, and confidence in every search."
         listings={listings}
-        accent="#0b4dd6"
       />
       <Footer />
     </>
